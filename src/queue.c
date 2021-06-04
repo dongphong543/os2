@@ -9,15 +9,14 @@ int empty(struct queue_t * q) {
 void enqueue(struct queue_t * q, struct pcb_t * proc) {
 	/* TODO: put a new process to queue [q] */	
 	//struct queue_t newq = *q;
-	int i=0;
-	//printf("\n \tq size b4: %d\n",q->size);
-	for(i=q->size-1;i>=0 && q->proc[i]->priority >= proc->priority;i--)
+	int i = 0;
+	for(i = q->size - 1; i >= 0 && q->proc[i]->priority >= proc->priority; i--)
 	{ 
-			q->proc[i+1]=q->proc[i];
+			q->proc[i+1] = q->proc[i];
 	}
 	q->proc[i+1] = proc;
-	q->size=q->size+1;
-	//printf("\n \tq size: %d\n",q->size);
+	q->size = q->size + 1;
+	
 }
 
 struct pcb_t * dequeue(struct queue_t * q) {
