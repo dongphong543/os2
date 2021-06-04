@@ -261,34 +261,7 @@ int free_mem(addr_t address, struct pcb_t * proc) {
 			}
 		}
 	}
-	//Update break pointer
-	if (v_address + num_pages * PAGE_SIZE == proc->bp) 
-	{
-		while (proc->bp >= PAGE_SIZE) 
-		{
-			addr_t last_addr = proc->bp - PAGE_SIZE;
-			addr_t last_segment = get_first_lv(last_addr);
-			addr_t last_page = get_second_lv(last_addr);
-			struct page_table_t * page_table = get_page_table(last_segment, proc->seg_table);
-			if (page_table == NULL) break;
-			while (last_page >= 0)
-			{
-				int i;
-				for (i = 0; i < page_table->size; i++)
-				{
-					if (page_table->table[i].v_index == last_page)
-					{
-						proc->bp -= PAGE_SIZE;
-						last_page--;
-						break;
-					}
-				}
-				if (i == page_table->size) break;
-			}
-			if (last_page >= 0) break;
-		}
-	}
-
+	
 	pthread_mutex_unlock(&mem_lock);
 	return 0;
 }
