@@ -31,13 +31,10 @@ struct pcb_t * get_proc(void) {
 		{
 			while (run_queue.size != 0)
 			{
-				//printf("\tdequeue run q\n");
-				struct pcb_t * tmp=dequeue(&run_queue);
-				//printf("\tenqueue ready q\n");				
+				struct pcb_t * tmp=dequeue(&run_queue);			
 				enqueue(&ready_queue,tmp);
 			}
 		}
-		//printf("\tdequeue ready q\n");
 		proc = dequeue(&ready_queue);
 	}
 	pthread_mutex_unlock(&queue_lock);
@@ -47,14 +44,12 @@ struct pcb_t * get_proc(void) {
 
 void put_proc(struct pcb_t * proc) {
 	pthread_mutex_lock(&queue_lock);
-	//printf("\tenqueue run q\n");
 	enqueue(&run_queue, proc);
 	pthread_mutex_unlock(&queue_lock);
 }
 
 void add_proc(struct pcb_t * proc) {
 	pthread_mutex_lock(&queue_lock);
-	//printf("\tenqueue ready q\n");
 	enqueue(&ready_queue, proc);
 	pthread_mutex_unlock(&queue_lock);	
 }
