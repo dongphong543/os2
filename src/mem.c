@@ -245,7 +245,7 @@ int free_mem(addr_t address, struct pcb_t * proc) {
 		}
 		if (page_table->size == 0)
 		{
-			if (proc->seg_table == NULL)
+			if (proc->seg_table != NULL)
 			{ 
 				for (i = 0; i < proc->seg_table->size; i++) 
 				{
