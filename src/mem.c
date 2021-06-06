@@ -97,6 +97,7 @@ static int translate(
 }
 
 addr_t alloc_mem(uint32_t size, struct pcb_t * proc) {
+	if (!size) return proc->bp;
 	pthread_mutex_lock(&mem_lock);
 	addr_t ret_mem = 0;
 	/* TODO: Allocate [size] byte in the memory for the
